@@ -1,9 +1,10 @@
+#https://github.com/wuchenxi/math250/blob/master/GE.py
 #usage: python3 GE.py
 
 M=[[0,1,1,0,1,1,0],
   [1,2,0,0,0,1,0],
   [0,1,0,1,0,0,1],
-  [1,1,0,1,0,0,0]]
+  [1,1,0,-1,0,0,0]]
 
 def print_matrix(A):
     for l in A:
@@ -45,12 +46,9 @@ def Gaussian_elimination(A):
     pivots=[]
     #Forward
     for i in range(m):
-        j=i
-        pivot=non_zero_idx(j, A)
-        for k in range(i+1, m):
-            if non_zero_idx(k, A)<pivot:
-                j=k
-                pivot=non_zero_idx(j, A)
+        lst=[(non_zero_idx(j, A), j) for j in range(i, m)]
+        lst.sort(key=lambda x: x[0])
+        pivot, j=lst[0]
         if pivot>=n:
             break
         switch(i,j,A)
